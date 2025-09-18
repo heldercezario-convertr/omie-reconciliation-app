@@ -81,7 +81,7 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 # Adicionar o logo da Convertr
-logo_path = "/home/ubuntu/upload/MarcaVertical(Positivo).png"
+logo_path = "MarcaVertical(Positivo).png"
 if os.path.exists(logo_path):
     st.sidebar.image(logo_path, use_container_width=True)
 else: 
@@ -186,9 +186,13 @@ if uploaded_file is not None:
                 values="Total_Valor_Liquido", 
                 names="Status_Conciliacao",
                 title="Distribuição por Status de Conciliação",
-                color_discrete_map={\'Pendente\': COLOR_DANGER, \'Recebido/Pago\': COLOR_SUCCESS},
+                color_discrete_map={
+                    'Pendente': COLOR_DANGER,
+                    'Recebido/Pago': COLOR_SUCCESS
+                },
                 hole=0.3 # Para um visual de donut
             )
+
             fig_pie.update_traces(marker=dict(line=dict(color=\'#FFFFFF\', width=2)))
             st.plotly_chart(fig_pie, use_container_width=True)
         
@@ -297,4 +301,3 @@ else:
     - ⚡ **Processamento rápido** de grandes volumes de dados
     - 📥 **Exportação fácil** para planilhas e relatórios
     """)
-
