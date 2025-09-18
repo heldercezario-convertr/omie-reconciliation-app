@@ -192,27 +192,26 @@ if uploaded_file is not None:
                 },
                 hole=0.3 # Para um visual de donut
             )
-
-            fig_pie.update_traces(marker=dict(line=dict(color=\'#FFFFFF\', width=2)))
+            fig_pie.update_traces(marker=dict(line=dict(color='#FFFFFF', width=2)))
             st.plotly_chart(fig_pie, use_container_width=True)
-        
+
         with col2:
             # Gráfico de barras - Valores por Tipo de Transação e Situação Pendente
             # Filtrar apenas pendentes para este gráfico
             bar_data = pending_items.groupby(["Tipo_Transacao", "Situacao_Pendente"])["A_Pagar_ou_Receber"].sum().reset_index()
             fig_bar = px.bar(
                 bar_data,
-                x=\'Tipo_Transacao\',
-                y=\'A_Pagar_ou_Receber\',
-                color=\'Situacao_Pendente\',
+                x='Tipo_Transacao',
+                y='A_Pagar_ou_Receber',
+                color='Situacao_Pendente',
                 title="Valores Pendentes por Tipo e Situação",
                 color_discrete_map={
-                    \'A Receber (Atrasado)\': COLOR_DANGER,
-                    \'A Receber (Futuro)\': COLOR_WARNING,
-                    \'A Pagar (Atrasado)\': COLOR_DANGER,
-                    \'A Pagar (Futuro)\': COLOR_WARNING
+                    'A Receber (Atrasado)': COLOR_DANGER,
+                    'A Receber (Futuro)': COLOR_WARNING,
+                    'A Pagar (Atrasado)': COLOR_DANGER,
+                    'A Pagar (Futuro)': COLOR_WARNING
                 },
-                barmode=\'group\'
+                barmode='group'
             )
             fig_bar.update_layout(xaxis_title="Tipo de Transação", yaxis_title="Valor Pendente")
             st.plotly_chart(fig_bar, use_container_width=True)
@@ -230,7 +229,7 @@ if uploaded_file is not None:
             with col1:
                 tipo_filtro = st.selectbox(
                     "Filtrar por tipo:",
-                    ["Todos"] + [item for item in pending_items["Tipo_Transacao"].unique() if item != \'Não Identificado\']
+                    ["Todos"] + [item for item in pending_items["Tipo_Transacao"].unique() if item != 'Não Identificado']
                 )
             with col2:
                 situacao_vencimento_filtro = st.selectbox(
@@ -259,7 +258,7 @@ if uploaded_file is not None:
             st.download_button(
                 label="📥 Baixar Lista de Pendências (CSV)",
                 data=csv_pendentes,
-                file_name=f"pendencias_omie_{datetime.now().strftime(\'%Y%m%d_%H%M%S\')}.csv",
+                file_name=f"pendencias_omie_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv",
                 mime="text/csv"
             )
         else:
@@ -274,7 +273,7 @@ if uploaded_file is not None:
             st.download_button(
                 label="📥 Baixar Dados Completos (CSV)",
                 data=csv_completo,
-                file_name=f"dados_completos_omie_{datetime.now().strftime(\'%Y%m%d_%H%M%S\')}.csv",
+                file_name=f"dados_completos_omie_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv",
                 mime="text/csv"
             )
 
