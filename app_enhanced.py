@@ -190,7 +190,7 @@ if uploaded_file is not None:
                 hole=0.3 # Para um visual de donut
             )
             fig_pie.update_traces(marker=dict(line=dict(color=\'#FFFFFF\', width=2)))
-            st.plotly_chart(fig_pie, use_container_width=True, width=\'stretch\')
+            st.plotly_chart(fig_pie, use_container_width=True)
         
         with col2:
             # Gráfico de barras - Valores por Tipo de Transação e Situação Pendente
@@ -254,7 +254,9 @@ if uploaded_file is not None:
             csv_pendentes = filtered_pending.to_csv(index=False)
             st.download_button(
                 label="📥 Baixar Lista de Pendências (CSV)",
-                data=csv_pendentes,                file_name=f"pendencias_omie_{datetime.now().strftime(\'%Y%m%d_%H%M%S\')}.csv",                mime="text/csv"
+                data=csv_pendentes,
+                file_name=f"pendencias_omie_{datetime.now().strftime(\'%Y%m%d_%H%M%S\')}.csv",
+                mime="text/csv"
             )
         else:
             st.success("🎉 Não há itens pendentes! Todas as contas estão em dia.")
