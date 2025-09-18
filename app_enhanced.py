@@ -83,8 +83,8 @@ st.markdown(f"""
 # Adicionar o logo da Convertr
 logo_path = "/home/ubuntu/upload/MarcaVertical(Positivo).png"
 if os.path.exists(logo_path):
-    st.sidebar.image(logo_path, use_column_width=True)
-else:
+    st.sidebar.image(logo_path, use_container_width=True)
+else: 
     st.sidebar.warning("Logo da Convertr não encontrado. Verifique o caminho.")
 
 st.title("💰 Conciliação Financeira OMIE - Convertr")
@@ -183,14 +183,14 @@ if uploaded_file is not None:
             pie_data = summary_data.groupby("Status_Conciliacao")["Total_Valor_Liquido"].sum().reset_index()
             fig_pie = px.pie(
                 pie_data, 
-                values='Total_Valor_Liquido', 
-                names='Status_Conciliacao',
+                values="Total_Valor_Liquido", 
+                names="Status_Conciliacao",
                 title="Distribuição por Status de Conciliação",
-                color_discrete_map={'Pendente': COLOR_DANGER, 'Recebido/Pago': COLOR_SUCCESS},
+                color_discrete_map={\'Pendente\': COLOR_DANGER, \'Recebido/Pago\': COLOR_SUCCESS},
                 hole=0.3 # Para um visual de donut
             )
-            fig_pie.update_traces(marker=dict(line=dict(color='#FFFFFF', width=2)))
-            st.plotly_chart(fig_pie, use_container_width=True)
+            fig_pie.update_traces(marker=dict(line=dict(color=\'#FFFFFF\', width=2)))
+            st.plotly_chart(fig_pie, use_container_width=True, width=\'stretch\')
         
         with col2:
             # Gráfico de barras - Valores por Tipo de Transação e Situação Pendente
@@ -198,17 +198,17 @@ if uploaded_file is not None:
             bar_data = pending_items.groupby(["Tipo_Transacao", "Situacao_Pendente"])["A_Pagar_ou_Receber"].sum().reset_index()
             fig_bar = px.bar(
                 bar_data,
-                x='Tipo_Transacao',
-                y='A_Pagar_ou_Receber',
-                color='Situacao_Pendente',
+                x=\'Tipo_Transacao\',
+                y=\'A_Pagar_ou_Receber\',
+                color=\'Situacao_Pendente\',
                 title="Valores Pendentes por Tipo e Situação",
                 color_discrete_map={
-                    'A Receber (Atrasado)': COLOR_DANGER,
-                    'A Receber (Futuro)': COLOR_WARNING,
-                    'A Pagar (Atrasado)': COLOR_DANGER,
-                    'A Pagar (Futuro)': COLOR_WARNING
+                    \'A Receber (Atrasado)\': COLOR_DANGER,
+                    \'A Receber (Futuro)\': COLOR_WARNING,
+                    \'A Pagar (Atrasado)\': COLOR_DANGER,
+                    \'A Pagar (Futuro)\': COLOR_WARNING
                 },
-                barmode='group'
+                barmode=\'group\'
             )
             fig_bar.update_layout(xaxis_title="Tipo de Transação", yaxis_title="Valor Pendente")
             st.plotly_chart(fig_bar, use_container_width=True)
@@ -226,7 +226,7 @@ if uploaded_file is not None:
             with col1:
                 tipo_filtro = st.selectbox(
                     "Filtrar por tipo:",
-                    ["Todos"] + list(pending_items["Tipo_Transacao"].unique())
+                    ["Todos"] + [item for item in pending_items["Tipo_Transacao"].unique() if item != \'Não Identificado\']
                 )
             with col2:
                 situacao_vencimento_filtro = st.selectbox(
@@ -254,9 +254,7 @@ if uploaded_file is not None:
             csv_pendentes = filtered_pending.to_csv(index=False)
             st.download_button(
                 label="📥 Baixar Lista de Pendências (CSV)",
-                data=csv_pendentes,
-                file_name=f"pendencias_omie_{datetime.now().strftime(\"%Y%m%d_%H%M%S\")}.csv",
-                mime="text/csv"
+                data=csv_pendentes,                file_name=f"pendencias_omie_{datetime.now().strftime(\'%Y%m%d_%H%M%S\')}.csv",                mime="text/csv"
             )
         else:
             st.success("🎉 Não há itens pendentes! Todas as contas estão em dia.")
@@ -270,7 +268,7 @@ if uploaded_file is not None:
             st.download_button(
                 label="📥 Baixar Dados Completos (CSV)",
                 data=csv_completo,
-                file_name=f"dados_completos_omie_{datetime.now().strftime(\"%Y%m%d_%H%M%S\")}.csv",
+                file_name=f"dados_completos_omie_{datetime.now().strftime(\'%Y%m%d_%H%M%S\')}.csv",
                 mime="text/csv"
             )
 
