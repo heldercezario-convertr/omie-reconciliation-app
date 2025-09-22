@@ -194,7 +194,7 @@ if uploaded_file is not None:
             )
             fig_pie.update_traces(marker=dict(line=dict(color='#FFFFFF', width=2)))
             st.plotly_chart(fig_pie, use_container_width=True)
-
+        
         with col2:
             # Gráfico de barras - Valores por Tipo de Transação e Situação Pendente
             # Filtrar apenas pendentes para este gráfico
@@ -300,3 +300,4 @@ else:
     - ⚡ **Processamento rápido** de grandes volumes de dados
     - 📥 **Exportação fácil** para planilhas e relatórios
     """)
+
